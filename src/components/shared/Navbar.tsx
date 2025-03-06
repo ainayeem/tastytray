@@ -10,6 +10,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useUser } from "@/context/UserContext";
+import { logout } from "@/services/AuthService";
 import { Heart, LogOut, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,25 +19,23 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 
 export default function Navbar() {
-  //   const { user, setIsLoading } = useUser();
+  const { user, setIsLoading } = useUser();
   const pathname = usePathname();
   const router = useRouter();
 
   const handleLogOut = () => {
     logout();
-    // setIsLoading(true);
+    setIsLoading(true);
     // if (protectedRoutes.some((route) => pathname.match(route))) {
     //   router.push("/");
     // }
   };
-  const user = false;
 
   return (
-    <header className="border-b w-full sticky top-0 z-10 bg-gray-200/60">
+    <header className="border-b w-full sticky top-0 z-10 bg-rose-200/60">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
         <Link href="/">
           <h1 className="text-2xl flex items-center gap-2 font-bold cursor-pointer">
-            {/* <Logo /> */}
             <Image src={logo} alt="logo" width={40} height={40} />
             <p>
               Tasty<span className="text-rose-600">Tray</span>
@@ -61,10 +61,6 @@ export default function Navbar() {
 
           {user ? (
             <>
-              <Link href="/create-shop">
-                <Button className="rounded-full">Create Shop</Button>
-              </Link>
-
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>
@@ -77,14 +73,11 @@ export default function Navbar() {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>Profile</DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
+                    <Link href={`dashboard/${user?.role}`}>Dashboard</Link>
                   </DropdownMenuItem>{" "}
                   <DropdownMenuItem>My Shop</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    className="bg-red-100 text-red-600 cursor-pointer font-semibold"
-                    onClick={handleLogOut}
-                  >
+                  <DropdownMenuItem className="bg-red-100 text-red-600 cursor-pointer font-semibold" onClick={handleLogOut}>
                     <LogOut />
                     <span>Log Out</span>
                   </DropdownMenuItem>
