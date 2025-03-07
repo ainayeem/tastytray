@@ -1,13 +1,13 @@
 export interface IMealProvider {
   address: string;
-  availableMeals: string[]; // Can be further typed if necessary
+  availableMeals: string[];
   createdAt: string;
   cuisineSpecialties: string[];
   email: string;
   experience: number;
   name: string;
   phone: string;
-  reviews: string[]; // Can be further typed if necessary
+  reviews: string[];
   updatedAt: string;
   user: string;
   __v: number;

@@ -124,3 +124,23 @@ export const updateProfile = async (userData: FieldValues) => {
     return Error((error as Error).message);
   }
 };
+
+// get meal provider profile
+// export const getMealProviderProfile = async () => {
+//   try {
+//     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/users/my-profile`, {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: (await cookies()).get("accessToken")!.value,
+//       },
+//       next: {
+//         tags: ["PROFILE"],
+//       },
+//     });
+
+//     return res.json();
+//   } catch (error) {
+//     return Error((error as Error).message);
+//   }
+// };
