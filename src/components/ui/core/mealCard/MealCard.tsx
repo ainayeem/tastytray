@@ -12,50 +12,68 @@ const MealCard = ({ meal }: { meal: IMeal }) => {
   };
 
   return (
-    <Card className="p-3">
-      <CardHeader className="relative p-0 h-48">
+    <Card className="group overflow-hidden hover:shadow-md transition-all p-2">
+      <div className="relative aspect-square">
         <Image
           src={meal?.imgUrl || "https://psediting.websites.co.in/obaju-turquoise/img/product-placeholder.png"}
-          width={500}
-          height={500}
+          fill
           alt={meal?.name}
-          className="rounded-sm h-48 object-cover"
+          className="object-cover transition-transform group-hover:scale-105 rounded-lg"
         />
-        {meal?.availability === false && <div className="absolute left-2 top-0 bg-red-500 text-white px-2 rounded-full">Out of Stock</div>}
-      </CardHeader>
+        {!meal?.availability && (
+          <div className="absolute left-0 top-0 bg-red-500 text-white px-3 py-1 text-sm">
+            Out of Stock
+          </div>
+        )}
+      </div>
 
-      <CardContent className=" p-0 mt-2">
-        {/* <Link href={`/products/${meal?._id}`} passHref> */}
-        <CardTitle title={meal?.name} className="font-semibold text-sm">
-          {meal?.name.length > 30 ? meal?.name?.slice(0, 30) + "..." : meal?.name}
-        </CardTitle>
-        {/* </Link> */}
-
-        <div className="flex items-center justify-between my-2">
-          <p className="text-sm text-gray-600">Price:{meal?.price}</p>
-          <p className="text-sm text-gray-600">Category:{meal?.category}</p>
-          <p className="text-sm text-gray-600">meal provider name:{meal?.mealProvider.name}</p>
+      <CardContent className="p-2">
+        <div className="mb-3">
+          <CardTitle className="text-lg font-semibold mb-1 line-clamp-1">
+            {meal?.name}
+          </CardTitle>
+          <div className="flex items-center justify-between">
+            <p className="text-2xl font-bold text-primary">BDT {meal?.price}</p>
+            <div className="flex items-center gap-1">
+              <span className="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-md text-sm">
+                {meal?.category}
+              </span>
+            </div>
+          </div>
         </div>
-      </CardContent>
 
-      <CardFooter className="block p-0">
-        <div className="flex gap-2 items-center justify-between">
-          <Link href={`/dashboard/customer/order-meal/${meal?._id}`} passHref>
-            <Button disabled={meal?.availability === true} size="sm" variant="outline" className="w-32">
-              View
+        <div className="space-y-2 border-t pt-3">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 bg-primary/10 rounded-full flex items-center justify-center">
+              {meal?.mealProvider?.name?.charAt(0)}
+            </div>
+            <p className="text-sm text-gray-600">{meal?.mealProvider?.name}</p>
+          </div>
+
+          <div className="flex flex-wrap gap-1">
+            {meal?.dietaryPreferences?.map((pref, index) => (
+              <span
+                key={index}
+                className="bg-green-50 text-green-700 text-xs px-2 py-0.5 rounded-md"
+              >
+                {pref}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-4 flex gap-2">
+          <Link href={`/dashboard/customer/order-meal/${meal?._id}`} className="flex-1">
+            <Button 
+              disabled={!meal?.availability} 
+              className="w-full"
+              variant={meal?.availability ? "default" : "outline"}
+            >
+              {meal?.availability ? "Order Now" : "Out of Stock"}
             </Button>
           </Link>
-          {/* <Button
-            onClick={() => handleAddProduct(meal)}
-            disabled={meal?.availability === false}
-            variant="outline"
-            size="sm"
-            className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
-          >
-            Order Now
-          </Button> */}
         </div>
-      </CardFooter>
+      </CardContent>
     </Card>
   );
 };

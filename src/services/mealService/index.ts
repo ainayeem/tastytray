@@ -20,6 +20,9 @@ export const getAllMeals = async (
   //   if (query?.rating) {
   //     params.append("ratings", query?.rating.toString());
   //   }
+  if (query?.searchTerm) {
+    params.append("searchTerm", query?.searchTerm.toString());
+  }
 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/providers?limit=${limit}&page=${page}&${params}`, {

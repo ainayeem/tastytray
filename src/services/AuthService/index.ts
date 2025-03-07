@@ -1,6 +1,7 @@
 "use server";
 
 import { jwtDecode } from "jwt-decode";
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 
@@ -82,4 +83,44 @@ export const getCurrentUser = async () => {
 
 export const logout = async () => {
   (await cookies()).delete("accessToken");
+};
+
+//get my profile
+export const getMyProfile = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/users/my-profile`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: (await cookies()).get("accessToken")!.value,
+      },
+      next: {
+        tags: ["PROFILE"],
+      },
+    });
+
+    return res.json();
+  } catch (error) {
+    return Error((error as Error).message);
+  }
+};
+
+// update profile
+export const updateProfile = async (userData: FieldValues) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/users/my-profile-update`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: (await cookies()).get("accessToken")!.value,
+      },
+
+      body: JSON.stringify(userData),
+    });
+    revalidateTag("PROFILE");
+
+    return res.json();
+  } catch (error) {
+    return Error((error as Error).message);
+  }
 };

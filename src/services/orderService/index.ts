@@ -32,3 +32,23 @@ export const createOrder = async (orderData: OrderData): Promise<any> => {
     return Error((error as Error).message);
   }
 };
+
+//get all orders
+export const getMyOrders = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/orders/customer-order`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: (await cookies()).get("accessToken")!.value,
+      },
+      next: {
+        tags: ["ORDER"],
+      },
+    });
+
+    return res.json();
+  } catch (error) {
+    return Error((error as Error).message);
+  }
+};

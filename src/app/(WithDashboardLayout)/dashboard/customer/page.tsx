@@ -13,7 +13,7 @@ const CustomerDashboardPage = async () => {
   return (
     <CustomContainer>
       <h2 className="text-2xl font-bold my-5 text-center">Explore Meal</h2>
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {meals?.map((meal: IMeal) => (
           <MealCard key={meal._id} meal={meal} />
         ))}

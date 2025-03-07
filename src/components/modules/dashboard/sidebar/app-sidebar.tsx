@@ -28,8 +28,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             url: "/find-meals",
           },
           {
-            title: "Manage Categories",
-            url: "/user/shop/category",
+            title: "Track Orders",
+            url: "/dashboard/customer/track-order",
           },
           {
             title: "Manage Brands",

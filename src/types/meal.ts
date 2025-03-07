@@ -1,4 +1,4 @@
-interface IMealProvider {
+export interface IMealProvider {
   address: string;
   availableMeals: string[]; // Can be further typed if necessary
   createdAt: string;
