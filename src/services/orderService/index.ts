@@ -52,3 +52,23 @@ export const getMyOrders = async () => {
     return Error((error as Error).message);
   }
 };
+
+// get meal provider orders
+export const getMealProviderOrders = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/orders/meal-provider-order`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: (await cookies()).get("accessToken")!.value,
+      },
+      next: {
+        tags: ["ORDER"],
+      },
+    });
+
+    return res.json();
+  } catch (error) {
+    return Error((error as Error).message);
+  }
+};

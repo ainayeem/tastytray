@@ -29,7 +29,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           },
           {
             title: "Track Orders",
-            url: "/dashboard/customer/track-order",
+            url: `/dashboard/${user?.role}/track-order`,
           },
           {
             title: "Manage Brands",
