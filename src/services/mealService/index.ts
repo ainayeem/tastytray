@@ -1,3 +1,9 @@
+"use server";
+
+import { ICreateMeal } from "@/types";
+import { revalidateTag } from "next/cache";
+import { cookies } from "next/headers";
+
 // get all meals
 export const getAllMeals = async (
   //
@@ -47,6 +53,24 @@ export const getSingleMeal = async (mealId: string) => {
     });
     const data = await res.json();
     return data;
+  } catch (error) {
+    return Error((error as Error).message);
+  }
+};
+
+// add meal
+export const addMeal = async (data: ICreateMeal) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/providers/menu`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: (await cookies()).get("accessToken")!.value,
+      },
+      body: JSON.stringify(data),
+    });
+    revalidateTag("MEAL");
+    return res.json();
   } catch (error) {
     return Error((error as Error).message);
   }

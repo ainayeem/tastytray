@@ -29,3 +29,15 @@ export interface IMeal {
   updatedAt: string;
   _id: string;
 }
+
+export interface ICreateMeal {
+  name: string;
+  category: string;
+  description: string;
+  price: number;
+  portionSize: string;
+  availability: boolean;
+  ingredients: string[];
+  dietaryPreferences: string[];
+  imgUrl: string;
+}
