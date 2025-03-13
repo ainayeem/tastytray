@@ -6,7 +6,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { addMeal } from "@/services/mealService";
-import { Plus } from "lucide-react";
+import { BadgeIndianRupee, ChefHat, FileText, Gauge, ListChecks, Plus, Tag, Trash2, UtensilsCrossed } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -34,14 +34,14 @@ export default function AddMealForm() {
     control,
   } = form;
 
-  const { append: appendIngredient, fields: ingredientFields } = useFieldArray({
+  const { append: appendIngredient, fields: ingredientFields, remove: removeIngredient } = useFieldArray({
     control,
     name: "ingredients",
   });
 
   const addIngredient = () => appendIngredient({ value: "" });
 
-  const { append: appendDietary, fields: dietaryFields } = useFieldArray({
+  const { append: appendDietary, fields: dietaryFields, remove: removeDietary } = useFieldArray({
     control,
     name: "dietaryPreferences",
   });
@@ -61,10 +61,8 @@ export default function AddMealForm() {
       imgUrl: "https://www.crowdedkitchen.com/wp-content/uploads/2020/07/vegan-breakfast-bowl.jpg",
     };
 
-    console.log("Form Submitted Data:", formattedData);
     try {
       const res = await addMeal(formattedData);
-      console.log("🚀 ~ constonSubmit:SubmitHandler<FieldValues>= ~ res:", res);
 
       if (res.success) {
         toast.success(res.message);
@@ -78,61 +76,119 @@ export default function AddMealForm() {
   };
 
   return (
-    <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-2xl p-5">
-      <h1 className="text-xl font-bold mb-5">Add Product</h1>
-      <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <FormField
-              control={control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Product Name</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+    <div className="max-w-3xl mx-auto">
+      <div className="bg-white rounded-2xl shadow-sm border p-8">
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+            Add New Meal
+          </h1>
+          <p className="text-gray-500 mt-2">Fill in the details to add a new meal to your menu</p>
+        </div>
+
+        <Form {...form}>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FormField
+                control={control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <ChefHat className="w-4 h-4 text-primary" />
+                      Meal Name
+                    </FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="Enter meal name" 
+                        {...field}
+                        className="bg-gray-50/50 border-gray-200 focus:bg-white transition-colors" 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <BadgeIndianRupee className="w-4 h-4 text-primary" />
+                      Price
+                    </FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="number" 
+                        placeholder="Enter price" 
+                        {...field}
+                        className="bg-gray-50/50 border-gray-200 focus:bg-white transition-colors" 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Tag className="w-4 h-4 text-primary" />
+                      Category
+                    </FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="Enter category" 
+                        {...field}
+                        className="bg-gray-50/50 border-gray-200 focus:bg-white transition-colors" 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={control}
+                name="portionSize"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Gauge className="w-4 h-4 text-primary" />
+                      Portion Size
+                    </FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="Enter portion size" 
+                        {...field}
+                        className="bg-gray-50/50 border-gray-200 focus:bg-white transition-colors" 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <FormField
               control={control}
-              name="price"
+              name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Price</FormLabel>
+                  <FormLabel className="flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-primary" />
+                    Description
+                  </FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={control}
-              name="category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={control}
-              name="portionSize"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Portion Size</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
+                    <Textarea 
+                      placeholder="Enter meal description" 
+                      className="h-36 resize-none bg-gray-50/50 border-gray-200 focus:bg-white transition-colors" 
+                      {...field} 
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -143,86 +199,132 @@ export default function AddMealForm() {
               control={control}
               name="availability"
               render={({ field }) => (
-                <FormItem className="flex items-center space-x-2">
-                  <FormLabel>Availability</FormLabel>
+                <FormItem className="flex items-center gap-3 bg-gray-50/50 p-4 rounded-lg border border-gray-200">
                   <FormControl>
-                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                    <Checkbox 
+                      checked={field.value} 
+                      onCheckedChange={field.onChange}
+                      className="data-[state=checked]:bg-primary data-[state=checked]:border-primary" 
+                    />
                   </FormControl>
+                  <FormLabel className="font-medium cursor-pointer">Available for Order</FormLabel>
                   <FormMessage />
                 </FormItem>
               )}
             />
-          </div>
 
-          <FormField
-            control={control}
-            name="description"
-            render={({ field }) => (
-              <FormItem className="my-5">
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Textarea className="h-36 resize-none" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <div className="space-y-6">
+              <div className="flex justify-between items-center border-b pb-4">
+                <div className="flex items-center gap-2">
+                  <UtensilsCrossed className="w-5 h-5 text-primary" />
+                  <h3 className="font-semibold text-lg">Ingredients</h3>
+                </div>
+                <Button 
+                  onClick={addIngredient} 
+                  variant="outline" 
+                  size="sm"
+                  className="hover:bg-primary/5 hover:text-primary transition-colors" 
+                  type="button"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Ingredient
+                </Button>
+              </div>
 
-          <div className="my-5">
-            <div className="flex justify-between items-center border-t border-b py-3">
-              <p className="text-primary font-bold text-xl">Ingredients</p>
-              <Button variant="outline" className="size-10" onClick={addIngredient} type="button">
-                <Plus className="text-primary" />
-              </Button>
+              <div className="space-y-4">
+                {ingredientFields.map((field, index) => (
+                  <div key={field.id} className="flex gap-3">
+                    <FormField
+                      control={control}
+                      name={`ingredients.${index}.value`}
+                      render={({ field }) => (
+                        <FormItem className="flex-1">
+                          <FormControl>
+                            <Input 
+                              placeholder={`Enter ingredient ${index + 1}`} 
+                              {...field}
+                              className="bg-gray-50/50 border-gray-200 focus:bg-white transition-colors" 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="hover:bg-rose-50 hover:text-rose-500"
+                      onClick={() => removeIngredient(index)}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
             </div>
-            {ingredientFields.map((ingredientField, index) => (
-              <FormField
-                key={ingredientField.id}
-                control={control}
-                name={`ingredients.${index}.value`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Ingredient {index + 1}</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            ))}
-          </div>
 
-          <div className="my-5">
-            <div className="flex justify-between items-center border-t border-b py-3">
-              <p className="text-primary font-bold text-xl">Dietary Preferences</p>
-              <Button onClick={addDietary} variant="outline" className="size-10" type="button">
-                <Plus className="text-primary" />
-              </Button>
+            <div className="space-y-6">
+              <div className="flex justify-between items-center border-b pb-4">
+                <div className="flex items-center gap-2">
+                  <ListChecks className="w-5 h-5 text-primary" />
+                  <h3 className="font-semibold text-lg">Dietary Preferences</h3>
+                </div>
+                <Button 
+                  onClick={addDietary} 
+                  variant="outline" 
+                  size="sm"
+                  className="hover:bg-primary/5 hover:text-primary transition-colors" 
+                  type="button"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Preference
+                </Button>
+              </div>
+
+              <div className="space-y-4">
+                {dietaryFields.map((field, index) => (
+                  <div key={field.id} className="flex gap-3">
+                    <FormField
+                      control={control}
+                      name={`dietaryPreferences.${index}.value`}
+                      render={({ field }) => (
+                        <FormItem className="flex-1">
+                          <FormControl>
+                            <Input 
+                              placeholder={`Enter dietary preference ${index + 1}`} 
+                              {...field}
+                              className="bg-gray-50/50 border-gray-200 focus:bg-white transition-colors" 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="hover:bg-rose-50 hover:text-rose-500"
+                      onClick={() => removeDietary(index)}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
             </div>
-            {dietaryFields.map((dietaryField, index) => (
-              <FormField
-                key={dietaryField.id}
-                control={control}
-                name={`dietaryPreferences.${index}.value`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Dietary Preference {index + 1}</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            ))}
-          </div>
 
-          <Button type="submit" className="mt-5 w-full" disabled={isSubmitting}>
-            {isSubmitting ? "Adding Meal..." : "Add Meal"}
-          </Button>
-        </form>
-      </Form>
+            <Button 
+              type="submit" 
+              className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary transition-all duration-300"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Adding Meal..." : "Add Meal"}
+            </Button>
+          </form>
+        </Form>
+      </div>
     </div>
   );
 }

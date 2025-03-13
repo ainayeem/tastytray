@@ -54,17 +54,24 @@ const RegisterCustomer = () => {
   };
 
   return (
-    <div>
+    <div className="bg-gradient-to-br from-white to-gray-100 rounded-3xl max-w-lg w-full p-10">
+      <div className="flex items-center space-x-4 mb-8">
+        
+      </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel className="text-gray-800">Name</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value || ""} />
+                  <Input 
+                    {...field} 
+                    value={field.value || ""} 
+                    className="border border-gray-300 rounded-lg p-3 focus:ring-primary focus:border-primary transition-all duration-200 ease-in-out transform hover:scale-105"
+                  />
                 </FormControl>
                 <FormMessage className="text-rose-500" />
               </FormItem>
@@ -75,9 +82,14 @@ const RegisterCustomer = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-gray-800">Email</FormLabel>
                 <FormControl>
-                  <Input type="email" {...field} value={field.value || ""} />
+                  <Input 
+                    type="email" 
+                    {...field} 
+                    value={field.value || ""} 
+                    className="border border-gray-300 rounded-lg p-3 focus:ring-primary focus:border-primary transition-all duration-200 ease-in-out transform hover:scale-105"
+                  />
                 </FormControl>
                 <FormMessage className="text-rose-500" />
               </FormItem>
@@ -88,9 +100,14 @@ const RegisterCustomer = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className="text-gray-800">Password</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} value={field.value || ""} />
+                  <Input 
+                    type="password" 
+                    {...field} 
+                    value={field.value || ""} 
+                    className="border border-gray-300 rounded-lg p-3 focus:ring-primary focus:border-primary transition-all duration-200 ease-in-out transform hover:scale-105"
+                  />
                 </FormControl>
                 <FormMessage className="text-rose-500" />
               </FormItem>
@@ -101,11 +118,15 @@ const RegisterCustomer = () => {
             name="passwordConfirm"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
+                <FormLabel className="text-gray-800">Confirm Password</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} value={field.value || ""} />
+                  <Input 
+                    type="password" 
+                    {...field} 
+                    value={field.value || ""} 
+                    className="border border-gray-300 rounded-lg p-3 focus:ring-primary focus:border-primary transition-all duration-200 ease-in-out transform hover:scale-105"
+                  />
                 </FormControl>
-
                 {passwordConfirm && password !== passwordConfirm ? (
                   <FormMessage className="text-rose-500"> Password does not match </FormMessage>
                 ) : (
@@ -119,9 +140,13 @@ const RegisterCustomer = () => {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone</FormLabel>
+                <FormLabel className="text-gray-800">Phone</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value || ""} />
+                  <Input 
+                    {...field} 
+                    value={field.value || ""} 
+                    className="border border-gray-300 rounded-lg p-3 focus:ring-primary focus:border-primary transition-all duration-200 ease-in-out transform hover:scale-105"
+                  />
                 </FormControl>
                 <FormMessage className="text-rose-500" />
               </FormItem>
@@ -132,18 +157,25 @@ const RegisterCustomer = () => {
             name="address"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Address</FormLabel>
+                <FormLabel className="text-gray-800">Address</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value || ""} />
+                  <Input 
+                    {...field} 
+                    value={field.value || ""} 
+                    className="border border-gray-300 rounded-lg p-3 focus:ring-primary focus:border-primary transition-all duration-200 ease-in-out transform hover:scale-105"
+                  />
                 </FormControl>
                 <FormMessage className="text-rose-500" />
               </FormItem>
             )}
           />
 
-          <Button disabled={!passwordConfirm || password !== passwordConfirm} type="submit" className="mt-5 w-full">
-            {isSubmitting ? "Registering...." : "Register"}
-            {/* register */}
+          <Button 
+            disabled={!passwordConfirm || password !== passwordConfirm} 
+            type="submit" 
+            className="w-full py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all duration-200 ease-in-out transform hover:scale-105"
+          >
+            {isSubmitting ? "Registering..." : "Register"}
           </Button>
         </form>
       </Form>

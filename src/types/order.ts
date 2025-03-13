@@ -48,11 +48,16 @@ export interface IUser {
 export interface IOrder {
   _id: string;
   user: IUser;
+  meals: Array<{
+    meal: IMeal;
+    quantity: number;
+    _id: string;
+  }>;
   mealProvider: IMealProvider;
-  meals: IMealOrder[];
+  status: string;
   orderDate: string;
-  status: "pending" | "completed" | "canceled";
   totalPrice: number;
+  customizations?: string[];
   createdAt: string;
   updatedAt: string;
 }

@@ -101,7 +101,16 @@ export const getMyProfile = async () => {
 
     return res.json();
   } catch (error) {
-    return Error((error as Error).message);
+    console.log(error);
+    return {
+      data: {
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+      },
+    };
+    // return Error((error as Error).message);
   }
 };
 

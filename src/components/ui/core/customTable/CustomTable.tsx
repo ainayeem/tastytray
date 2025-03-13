@@ -43,7 +43,7 @@ export function CustomTable<TData, TValue>({ columns, data }: DataTableProps<TDa
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell colSpan={columns?.length} className="h-24 text-center">
                 No results.
               </TableCell>
             </TableRow>

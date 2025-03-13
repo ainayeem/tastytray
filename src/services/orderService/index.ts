@@ -15,6 +15,7 @@ interface OrderData {
 }
 
 // create order
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createOrder = async (orderData: OrderData): Promise<any> => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/orders/create-order`, {
@@ -67,6 +68,26 @@ export const getMealProviderOrders = async () => {
       },
     });
 
+    return res.json();
+  } catch (error) {
+    return Error((error as Error).message);
+  }
+};
+
+// update order status
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const updateOrderStatus = async (id: string, updateData: any): Promise<any> => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/orders/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: (await cookies()).get("accessToken")!.value,
+      },
+      body: JSON.stringify(updateData),
+    });
+
+    revalidateTag("ORDER");
     return res.json();
   } catch (error) {
     return Error((error as Error).message);

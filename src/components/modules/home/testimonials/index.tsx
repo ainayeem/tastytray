@@ -36,11 +36,9 @@ const Testimonials = () => {
               {testimonials.map((testimonial, index) => (
                 <Card key={index}>
                   <CardContent className="pt-6">
-                    <div className="mb-4">
-                      <Image src={testimonial.image} className="rounded-full mx-auto" alt={testimonial.name} width={50} height={50} />
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <div>
+                   <div className="flex justify-between items-center">
+                   <div>
+                     <div>
                         <p className="font-semibold pb-4">{testimonial.name}</p>
                       </div>
                       <div className="flex items-center mb-4">
@@ -48,7 +46,15 @@ const Testimonials = () => {
                           <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
                         ))}
                       </div>
+                     </div>
+
+                      <div className="mb-4">
+                      <Image src={testimonial.image} className="rounded-full" alt={testimonial.name} width={50} height={50} />
                     </div>
+                   </div>
+                   
+                     
+                   
                     <q className="text-gray-600 mb-4">{testimonial.feedback}</q>
                   </CardContent>
                 </Card>

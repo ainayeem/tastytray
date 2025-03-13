@@ -12,12 +12,28 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FieldValues, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+interface OrderFormValues {
+  quantity: string;
+  deliveryTime: Date | null;
+  customizations?: { value: string }[];
+}
+
 const MealDetails = ({ meal }: { meal: IMeal }) => {
-  const form = useForm();
+  const form = useForm<OrderFormValues>({
+    defaultValues: {
+      quantity: "",
+      deliveryTime: null,
+      customizations: [],
+    },
+  });
 
   const {
     formState: { isSubmitting },
+    watch,
   } = form;
+
+  const quantity = watch("quantity");
+  const deliveryTime = watch("deliveryTime");
 
   const { append: appendCustomizations, fields: customizationsFields } = useFieldArray({
     control: form.control,
@@ -245,8 +261,19 @@ const MealDetails = ({ meal }: { meal: IMeal }) => {
                     </div>
                   </div>
 
-                  <Button type="submit" className="w-full py-6 text-lg font-medium mt-6" disabled={isSubmitting || !meal?.availability}>
-                    {isSubmitting ? "Placing Order..." : !meal?.availability ? "Out of Stock" : "Place Order"}
+                  <Button 
+                    type="submit" 
+                    className="w-full py-6 text-lg font-medium mt-6" 
+                    disabled={isSubmitting || !meal?.availability || !quantity || !deliveryTime}
+                  >
+                    {isSubmitting 
+                      ? "Placing Order..." 
+                      : !meal?.availability 
+                      ? "Out of Stock" 
+                      : !quantity || !deliveryTime 
+                      ? "Please fill required fields" 
+                      : "Place Order"
+                    }
                   </Button>
                 </form>
               </Form>

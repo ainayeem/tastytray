@@ -5,18 +5,18 @@ import RegisterMealProvider from "./RegisterMealProvider";
 
 const RegisterForm = () => {
   return (
-    <section className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
-      <div className="flex items-center space-x-4 ">
+    <section className="bg-gradient-to-br from-white to-gray-100 shadow-xl rounded-3xl max-w-xl w-full p-12">
+      <div className="flex items-center space-x-4 mb-8">
         <div>
-          <h1 className="text-xl font-semibold">Register</h1>
-          <p className="font-extralight text-sm">Join us today and start your journey!</p>
+          <h1 className="text-3xl font-extrabold text-gray-900">Register</h1>
+          <p className="text-base text-gray-600">Join us today and start your journey!</p>
         </div>
       </div>
       {/* tabs */}
       <Tabs defaultValue="customer" className="mt-5">
-        <TabsList className="w-full">
-          <TabsTrigger value="customer">As Customer</TabsTrigger>
-          <TabsTrigger value="mealProvider">As Meal Provider</TabsTrigger>
+        <TabsList className="w-full flex justify-center space-x-4">
+          <TabsTrigger value="customer" className="cursor-pointer">As Customer</TabsTrigger>
+          <TabsTrigger value="mealProvider" className="cursor-pointer">As Meal Provider</TabsTrigger>
         </TabsList>
         <TabsContent value="customer">
           <RegisterCustomer />
@@ -26,10 +26,9 @@ const RegisterForm = () => {
         </TabsContent>
       </Tabs>
 
-      {/*  */}
-      <p className="text-sm text-gray-600 text-center my-3">
-        Already have an account ?
-        <Link href="/login" className="text-primary">
+      <p className="text-base text-gray-600 text-center mt-6">
+        Already have an account? 
+        <Link href="/login" className="text-primary font-semibold hover:underline">
           Login
         </Link>
       </p>

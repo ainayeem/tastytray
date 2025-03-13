@@ -50,23 +50,28 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
-      <div className="flex items-center space-x-4 ">
+    <div className="bg-gradient-to-br from-white to-gray-100 shadow-xl rounded-3xl max-w-lg w-full p-10">
+      <div className="flex items-center space-x-4 mb-8">
         <div>
-          <h1 className="text-xl font-semibold">Login</h1>
-          <p className="font-extralight text-sm text-gray-600">Welcome back!</p>
+          <h1 className="text-3xl font-extrabold text-gray-900">Login</h1>
+          <p className="text-base text-gray-600">Welcome back! Please enter your details below.</p>
         </div>
       </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-gray-800">Email</FormLabel>
                 <FormControl>
-                  <Input type="email" {...field} value={field.value || ""} />
+                  <Input
+                    type="email"
+                    {...field}
+                    value={field.value || ""}
+                    className="border border-gray-300 rounded-lg p-3 focus:ring-primary focus:border-primary"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -77,23 +82,28 @@ export default function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className="text-gray-800">Password</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} value={field.value || ""} />
+                  <Input
+                    type="password"
+                    {...field}
+                    value={field.value || ""}
+                    className="border border-gray-300 rounded-lg p-3 focus:ring-primary focus:border-primary"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <Button type="submit" className="mt-5 w-full">
+          <Button type="submit" className="w-full py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all cursor-pointer">
             {isSubmitting ? "Logging..." : "Login"}
           </Button>
         </form>
       </Form>
-      <p className="text-sm text-gray-600 text-center my-3">
-        Do not have any account ?
-        <Link href="/register" className="text-primary">
+      <p className="text-base text-gray-600 text-center mt-6">
+        Don&apos;t have an account?
+        <Link href="/register" className="text-primary font-semibold hover:underline">
           Register
         </Link>
       </p>

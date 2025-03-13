@@ -12,16 +12,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useUser } from "@/context/UserContext";
 import { logout } from "@/services/AuthService";
-import { Heart, LogOut, ShoppingBag } from "lucide-react";
+import { LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+// import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
-  const pathname = usePathname();
-  const router = useRouter();
+  // const pathname = usePathname();
+  // const router = useRouter();
 
   const handleLogOut = () => {
     logout();
@@ -32,7 +32,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="border-b w-full sticky top-0 z-10 bg-rose-200/60">
+    <header className="border-b w-full sticky top-0 z-50 bg-rose-200/60">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
         <Link href="/">
           <h1 className="text-2xl flex items-center gap-2 font-bold cursor-pointer">
@@ -42,28 +42,15 @@ export default function Navbar() {
             </p>
           </h1>
         </Link>
-        {/* <div className="max-w-md  flex-grow">
-          <input
-            type="text"
-            placeholder="Search for products"
-            className="w-full max-w-6xl border border-gray-300 rounded-full py-2 px-5 focus:ring-emerald-500"
-          />
+        {/* <div className="hidden md:flex max-w-md flex-grow justify-center">
+          <p className="text-primary uppercase text-xl">Delicious meals delivered to your door</p>
         </div> */}
         <nav className="flex gap-2">
-          <Button variant="outline" className="rounded-full p-0 size-10">
-            <Heart />
-          </Button>
-          <Link href="/cart">
-            <Button variant="outline" className="rounded-full p-0 size-10">
-              <ShoppingBag />
-            </Button>
-          </Link>
-
           {user ? (
             <>
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                  <Avatar>
+                  <Avatar className="cursor-pointer w-10 h-10">
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>User</AvatarFallback>
                   </Avatar>
@@ -77,7 +64,6 @@ export default function Navbar() {
                   <DropdownMenuItem>
                     <Link href={`dashboard/${user?.role}`}>Dashboard</Link>
                   </DropdownMenuItem>{" "}
-                  <DropdownMenuItem>My Shop</DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="bg-red-100 text-red-600 cursor-pointer font-semibold" onClick={handleLogOut}>
                     <LogOut />
@@ -88,9 +74,7 @@ export default function Navbar() {
             </>
           ) : (
             <Link href="/login">
-              <Button className="rounded-full" variant="outline">
-                Login
-              </Button>
+              <Button className="rounded-lg cursor-pointer">Login</Button>
             </Link>
           )}
         </nav>

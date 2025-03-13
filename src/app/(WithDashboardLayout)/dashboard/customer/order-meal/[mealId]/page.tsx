@@ -9,7 +9,7 @@ const MealDetailsPage = async ({ params }: { params: Promise<{ mealId: string }>
   //   console.log("🚀 ~ MealDetailsPage ~ meal:", meal);
   return (
     <CustomContainer>
-      <h1>meal details</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Meal Details</h1>
       <MealDetails meal={meal} />
     </CustomContainer>
   );

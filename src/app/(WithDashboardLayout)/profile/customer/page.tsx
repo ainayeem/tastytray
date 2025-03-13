@@ -1,12 +1,13 @@
 import UpdateProfileForm from "@/components/modules/auth/profile/UpdateProfileForm";
-import { getMyProfile } from "@/services/AuthService";
 
 const CustomerProfilePage = async () => {
-  const { data: myProfile } = await getMyProfile();
+  // const myProfile = (await getMyProfile()).data;
   //   console.log("🚀 ~ CustomerProfilePage ~ myProfile:", myProfile);
   return (
     <div>
-      <UpdateProfileForm myProfile={myProfile} />
+      <UpdateProfileForm
+      // myProfile={myProfile}
+      />
     </div>
   );
 };
