@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TastyTray
 
-## Getting Started
+## Meal Planning & Delivery Web Application
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The **Meal Planning & Delivery Web Application** is a platform that allows customers to personalize meal plans based on dietary preferences and schedule deliveries. Meal providers can manage menus, respond to customer orders, and track deliveries efficiently.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. User Authentication
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Secure authentication using **JWT (JSON Web Tokens)**.
+- Custom login system for customers and meal providers via email or phone number and password.
+- Password hashing with **bcrypt** for enhanced security.
 
-## Learn More
+### 2. Customer and Meal Provider Dashboards
 
-To learn more about Next.js, take a look at the following resources:
+- **Customer Dashboard:** Allows meal selection, order tracking, and preference management.
+- **Meal Provider Dashboard:** Enables menu management, order responses, and delivery tracking.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Meal Selection & Preferences
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Customers can choose meal plans and customize meals based on dietary preferences (e.g., vegan, keto, gluten-free).
+- Meal providers can create/update meal options with details like ingredients, portion sizes, and pricing.
 
-## Deploy on Vercel
+### 4. Search and Match
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Customers can search for meals based on cuisine type, dietary needs, ratings, and availability.
+- Meal providers can view customer meal preferences to tailor offerings.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 5. Role-Based Access Control
+
+- Separate views and features for customers and meal providers.
+- Optional **admin access** for managing users and content.
+
+### 6. CRUD Operations
+
+- Customers can create, view, and update meal plans/preferences.
+- Meal providers can view and respond to customer meal requests.
+
+## Tech Stack
+
+### **Frontend:**
+
+- **Next.js** (for SSR/SSG capabilities)
+- **React** (for dynamic user interfaces)
+- **TypeScript** (for type safety)
+
+## Frontend Routes
+
+### **For Customers:**
+
+- **Home Page (/):** Overview of platform benefits.
+- **Login Page (/login):** Customer login.
+- **Dashboard (/dashboard/customer):**
+  - Select Meals: Browse meal options and customize orders.
+  - Track Orders: View past and ongoing deliveries.
+  - Manage Preferences: Set dietary restrictions and portion sizes.
+- **Profile (/profile/customer):** Edit personal details.
+- **Find Meals (/find-meals):** Search meals based on preferences and ratings.
+- **Order Meal (/order-meal):** Place meal orders with scheduling and customization options.
+
+### **For Meal Providers:**
+
+- **Home Page (/):** Overview of platform benefits.
+- **Login Page (/login):** Meal provider login.
+- **Dashboard (/dashboard/provider):**
+  - Manage Menus: Create and update meal offerings.
+  - View Orders: See customer orders and preferences.
+  - Respond to Orders: Accept, modify, or decline requests.
+- **Profile (/profile/provider):** Edit profile details (cuisine specialties, pricing, availability).
+- **Post Meal Menu (/post-meal-menu):** Upload detailed meal menus for customer browsing.
+- **Order Responses (/responses):** Confirm or decline customer orders.
+
+## Installation & Setup
+
+1. **Clone the Repository:**
+2. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Run the Application:**
+   ```bash
+   npm run dev
+   ```
+4. **Open in Browser:**
+   ```
+   http://localhost:3000
+   ```

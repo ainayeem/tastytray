@@ -172,7 +172,7 @@ const TrackOrderPage = async () => {
 
                               <div className="flex items-center gap-4 mt-4 pt-4 border-t">
                                 <div>
-                                  <p className="text-sm text-gray-500">Price per item</p>
+                                  <p className="text-sm text-gray-500">Price</p>
                                   <p className="font-medium">BDT {meal.price}</p>
                                 </div>
                                 <div>
