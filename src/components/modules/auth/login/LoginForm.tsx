@@ -24,6 +24,7 @@ export default function LoginForm() {
   const router = useRouter();
 
   const {
+    setValue,
     formState: { isSubmitting },
   } = form;
 
@@ -47,6 +48,16 @@ export default function LoginForm() {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const handleDemoLogin = async (role: "customer" | "mealProvider") => {
+    const credentials =
+      role === "customer" ? { email: "customer@test.com", password: "123456789" } : { email: "mealProvider@test.com", password: "123456789" };
+
+    setValue("email", credentials.email);
+    setValue("password", credentials.password);
+
+    await onSubmit(credentials);
   };
 
   return (
@@ -96,9 +107,18 @@ export default function LoginForm() {
             )}
           />
 
-          <Button type="submit" className="w-full py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all cursor-pointer">
+          <Button type="submit" className="w-full rounded-lg hover:bg-primary-dark transition-all cursor-pointer">
             {isSubmitting ? "Logging..." : "Login"}
           </Button>
+          {/* Demo Login Buttons */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            <Button onClick={() => handleDemoLogin("customer")} type="submit" className="cursor-pointer">
+              Demo Customer
+            </Button>
+            <Button onClick={() => handleDemoLogin("mealProvider")} type="submit" className="cursor-pointer">
+              Demo Mealprovider
+            </Button>
+          </div>
         </form>
       </Form>
       <p className="text-base text-gray-600 text-center mt-6">
